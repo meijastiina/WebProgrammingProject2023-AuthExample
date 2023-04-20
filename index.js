@@ -10,11 +10,20 @@ app.get("/", (req, res) => {
 
 app.post("/login", (req, res) => {
   // This is to handle posted credentials and check if they are valid
-  
+
   // Read username and password from request body
-    const { username, password } = req.body;
-    // Console log that somebody's trying to log in
-    console.log(`Trying to log in with username: ${username} and password: ${password}`);
+  const { username, password } = req.body;
+  // Console log that somebody's trying to log in
+  console.log(
+    `Trying to log in with username: ${username} and password: ${password}`
+  );
+  // Check if the username and password are valid
+  if (username === "john" && password === "password") {
+    // Login successful
+    return res.json({ message: "Login successful!" });
+  }
+  // Login failed
+  return res.status(401).send("Login failed!");
 });
 
 app.get("/profile", (req, res) => {
