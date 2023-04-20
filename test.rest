@@ -1,0 +1,8 @@
+### Get root
+GET http://localhost:3000/
+
+### Get profile
+GET http://localhost:3000/profile
+
+### Post login
+POST http://localhost:3000/login
