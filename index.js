@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 // Get functions from auth.js
 const { createToken } = require("./auth");
 const app = express();
@@ -9,7 +10,9 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-
+app.get("/login", (req, res) => {
+  res.sendFile(__dirname + "/public/login.html");
+});
 app.post("/login", (req, res) => {
   // This is to handle posted credentials and check if they are valid
 
