@@ -1,5 +1,8 @@
 const express = require("express");
 const app = express();
+// This is to parse request body for POST requests
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
