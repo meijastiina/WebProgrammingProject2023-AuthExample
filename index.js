@@ -1,4 +1,6 @@
 const express = require("express");
+// Get functions from auth.js
+const { createToken } = require("./auth");
 const app = express();
 // This is to parse request body for POST requests
 const bodyParser = require("body-parser");
@@ -18,9 +20,11 @@ app.post("/login", (req, res) => {
     `Trying to log in with username: ${username} and password: ${password}`
   );
   // Check if the username and password are valid
-  if (username === "john" && password === "password") {
+  if (username === "mary" && password === "password") {
+    // Create a JWT token
+    const token = createToken(username);
     // Login successful
-    return res.json({ message: "Login successful!" });
+    return res.json({ message: "Login successful!", token: token });
   }
   // Login failed
   return res.status(401).send("Login failed!");
