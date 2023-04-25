@@ -1,8 +1,11 @@
 const express = require("express");
 const path = require("path");
 // Get functions from auth.js
-const { createToken } = require("./auth");
+const { createToken, verifyToken } = require("./auth");
 const app = express();
+// Cookie parser
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 // This is to parse request body for POST requests
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -41,7 +44,7 @@ app.post("/login", (req, res) => {
   return res.status(401).send("Login failed!");
 });
 
-app.get("/profile", (req, res) => {
+app.get("/profile", verifyToken, async (req, res) => {
   // This is only accessible if the user is logged in
   res.send("Hello Profile!");
 });
