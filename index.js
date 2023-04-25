@@ -6,7 +6,11 @@ const app = express();
 // This is to parse request body for POST requests
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
-
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
@@ -26,6 +30,10 @@ app.post("/login", (req, res) => {
   if (username === "mary" && password === "password") {
     // Create a JWT token
     const token = createToken(username);
+    // Save token in a cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+    });
     // Login successful
     return res.json({ message: "Login successful!", token: token });
   }
